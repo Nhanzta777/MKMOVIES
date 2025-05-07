@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <!-- Thiết lập bảng mã ký tự UTF-8 để hiển thị tiếng Việt -->
+    <meta charset="UTF-8">
+    <!-- Thiết lập viewport để website responsive trên mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Tiêu đề trang web -->
+    <title>NKMOVIES - Đăng nhập & Đăng ký</title>
+    <!-- Liên kết file CSS để định dạng giao diện -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Container chính: Căn giữa và giới hạn chiều rộng tối đa -->
+    <div class="container">
+        <!-- Container form: Tạo khung trắng và đổ bóng cho form -->
+        <div class="form-container">
+            <!-- Form đăng nhập: Hiển thị mặc định khi vào trang -->
+            <div class="form-section" id="login-form">
+                <h2>Đăng nhập</h2>
+                <!-- Form đăng nhập: Xử lý sự kiện submit và validate dữ liệu -->
+                <form onsubmit="return validateLogin(event)">
+                    <!-- Nhóm input email: Kiểm tra định dạng Gmail -->
+                    <div class="form-group">
+                        <input type="email" id="login-email" placeholder="Email" required>
+                    </div>
+                    <!-- Nhóm input mật khẩu: Kiểm tra độ mạnh mật khẩu -->
+                    <div class="form-group">
+                        <input type="password" id="login-password" placeholder="Mật khẩu" required>
+                    </div>
+                    <!-- Nút đăng nhập: Gửi form và xử lý đăng nhập -->
+                    <button type="submit">Đăng nhập</button>
+                </form>
+                <!-- Link chuyển form: Chuyển đổi giữa đăng nhập và đăng ký -->
+                <p>Chưa có tài khoản? <a href="#" onclick="toggleForms()">Đăng ký ngay</a></p>
+                <!-- Link quên mật khẩu: Mở modal đặt lại mật khẩu -->
+                <p><a href="#" onclick="showForgotPasswordModal()">Quên mật khẩu?</a></p>
+            </div>
+
+            <!-- Form đăng ký: Ẩn mặc định, hiện khi click đăng ký -->
+            <div class="form-section" id="register-form" style="display: none;">
+                <h2>Đăng ký</h2>
+                <!-- Form đăng ký: Validate và lưu thông tin người dùng mới -->
+                <form onsubmit="return validateRegister(event)">
+                    <!-- Nhóm input họ tên: Kiểm tra không được để trống -->
+                    <div class="form-group">
+                        <input type="text" id="register-name" placeholder="Họ và tên" required>
+                    </div>
+                    <!-- Nhóm input email: Kiểm tra định dạng và trùng lặp -->
+                    <div class="form-group">
+                        <input type="email" id="register-email" placeholder="Email" required>
+                    </div>
+                    <!-- Nhóm input mật khẩu: Kiểm tra độ mạnh và yêu cầu -->
+                    <div class="form-group">
+                        <input type="password" id="register-password" placeholder="Mật khẩu" required>
+                    </div>
+                    <!-- Nhóm input xác nhận mật khẩu: Kiểm tra khớp với mật khẩu -->
+                    <div class="form-group">
+                        <input type="password" id="register-confirm-password" placeholder="Xác nhận mật khẩu" required>
+                    </div>
+                    <!-- Nút đăng ký: Lưu thông tin và tạo tài khoản mới -->
+                    <button type="submit">Đăng ký</button>
+                </form>
+                <!-- Link chuyển form: Quay lại form đăng nhập -->
+                <p>Đã có tài khoản? <a href="#" onclick="toggleForms()">Đăng nhập</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal quên mật khẩu: Hiện khi click quên mật khẩu hoặc đăng nhập sai -->
+    <div id="forgot-password-modal" class="modal">
+        <div class="modal-content">
+            <!-- Nút đóng modal: Ẩn modal và reset form -->
+            <span class="close" onclick="closeForgotPasswordModal()">&times;</span>
+            <h2>Quên mật khẩu</h2>
+            <!-- Bước 1: Xác nhận đặt lại mật khẩu -->
+            <div id="forgot-password-step1">
+                <!-- Hiển thị email cần đặt lại mật khẩu -->
+                <p>Bạn có muốn đặt lại mật khẩu cho tài khoản <span id="confirm-email"></span>?</p>
+                <div class="modal-buttons">
+                    <!-- Nút đặt lại: Chuyển đến form đặt mật khẩu mới -->
+                    <button onclick="showResetPasswordForm()">Đặt lại mật khẩu</button>
+                    <!-- Nút đăng ký: Chuyển đến form đăng ký mới -->
+                    <button onclick="showRegisterForm()">Đăng ký tài khoản mới</button>
+                </div>
+            </div>
+            <!-- Bước 2: Form đặt lại mật khẩu -->
+            <div id="forgot-password-step2" style="display: none;">
+                <!-- Form đặt lại mật khẩu: Validate và cập nhật mật khẩu mới -->
+                <form onsubmit="return handleResetPassword(event)">
+                    <!-- Nhóm input email: Tự động điền từ form đăng nhập -->
+                    <div class="form-group">
+                        <input type="email" id="reset-email" placeholder="Nhập email của bạn" required>
+                    </div>
+                    <!-- Nhóm input mật khẩu mới: Kiểm tra độ mạnh -->
+                    <div class="form-group">
+                        <input type="password" id="new-password" placeholder="Mật khẩu mới" required>
+                    </div>
+                    <!-- Nhóm input xác nhận: Kiểm tra khớp với mật khẩu mới -->
+                    <div class="form-group">
+                        <input type="password" id="confirm-new-password" placeholder="Xác nhận mật khẩu mới" required>
+                    </div>
+                    <!-- Nút xác nhận: Cập nhật mật khẩu mới vào hệ thống -->
+                    <button type="submit">Đặt lại mật khẩu</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Liên kết file JavaScript: Xử lý logic và tương tác -->
+    <script src="script.js"></script>
+</body>
+</html> 

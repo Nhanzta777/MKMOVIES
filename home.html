@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NKMOVIES - Trang chủ</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>NKMOVIES</h1>
+            <div class="user-info">
+                <span id="user-name"></span>
+                <a href="favorites.html" class="favorites-link">
+                    <i class="fas fa-heart"></i>
+                    <span class="favorites-count">0</span>
+                </a>
+                <button onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Khám Phá Thế Giới Điện Ảnh</h2>
+                <p>Hàng ngàn bộ phim hay đang chờ bạn khám phá. Đăng ký ngay để trải nghiệm!</p>
+            </div>
+        </div>
+    </section>
+
+    <main class="container">
+        <div class="categories">
+            <button class="category-btn active">Tất cả</button>
+            <button class="category-btn">Hành động</button>
+            <button class="category-btn">Tình cảm</button>
+            <button class="category-btn">Hài hước</button>
+            <button class="category-btn">Kinh dị</button>
+            <button class="category-btn">Hoạt hình</button>
+        </div>
+
+        <section class="movie-section">
+            <h2 class="section-title">Phim Mới Cập Nhật</h2>
+            <div class="movie-grid">
+                <!-- Phim 1 -->
+                <div class="movie-card">
+                    <div class="movie-rating">8.5</div>
+                    <button class="favorite-btn" onclick="toggleFavorite('movie1')">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <img src="assets/images/movies/Oppenheimer.jpg" alt="Tên phim 1" class="movie-poster">
+                    <div class="movie-info">
+                        <h3 class="movie-title">Oppenheimer</h3>
+                        <p class="movie-year">2024</p>
+                    </div>
+                </div>
+
+                <!-- Phim 2 -->
+                <div class="movie-card">
+                    <div class="movie-rating">9.0</div>
+                    <button class="favorite-btn" onclick="toggleFavorite('movie2')">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <img src="assets/images/movies/movie2.jpg" alt="Tên phim 2" class="movie-poster">
+                    <div class="movie-info">
+                        <h3 class="movie-title">Tên phim 2</h3>
+                        <p class="movie-year">2024</p>
+                    </div>
+                </div>
+
+                <!-- Phim 3 -->
+                <div class="movie-card">
+                    <div class="movie-rating">7.8</div>
+                    <button class="favorite-btn" onclick="toggleFavorite('movie3')">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <img src="assets/images/movies/movie3.jpg" alt="Tên phim 3" class="movie-poster">
+                    <div class="movie-info">
+                        <h3 class="movie-title">Tên phim 3</h3>
+                        <p class="movie-year">2024</p>
+                    </div>
+                </div>
+
+                <!-- Thêm các phim khác tương tự -->
+            </div>
+        </section>
+
+        <section class="movie-section">
+            <h2 class="section-title">Phim Đề Cử</h2>
+            <div class="movie-grid">
+                <!-- Phim đề cử 1 -->
+                <div class="movie-card">
+                    <div class="movie-rating">9.2</div>
+                    <button class="favorite-btn" onclick="toggleFavorite('movie4')">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <img src="assets/images/movies/movie4.jpg" alt="Tên phim 4" class="movie-poster">
+                    <div class="movie-info">
+                        <h3 class="movie-title">Tên phim 4</h3>
+                        <p class="movie-year">2024</p>
+                    </div>
+                </div>
+
+                <!-- Phim đề cử 2 -->
+                <div class="movie-card">
+                    <div class="movie-rating">8.9</div>
+                    <button class="favorite-btn" onclick="toggleFavorite('movie5')">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <img src="assets/images/movies/movie5.jpg" alt="Tên phim 5" class="movie-poster">
+                    <div class="movie-info">
+                        <h3 class="movie-title">Tên phim 5</h3>
+                        <p class="movie-year">2024</p>
+                    </div>
+                </div>
+
+                <!-- Phim đề cử 3 -->
+                <div class="movie-card">
+                    <div class="movie-rating">8.7</div>
+                    <button class="favorite-btn" onclick="toggleFavorite('movie6')">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <img src="assets/images/movies/movie6.jpg" alt="Tên phim 6" class="movie-poster">
+                    <div class="movie-info">
+                        <h3 class="movie-title">Tên phim 6</h3>
+                        <p class="movie-year">2024</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Kiểm tra đăng nhập
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (!currentUser) {
+            window.location.href = 'index.html';
+        }
+
+        // Hiển thị tên người dùng
+        document.getElementById('user-name').textContent = `Xin chào, ${currentUser.name}`;
+
+        // Xử lý đăng xuất
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'index.html';
+        }
+
+        // Xử lý chuyển đổi category
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+            });
+        });
+
+        // Xử lý yêu thích
+        function toggleFavorite(movieId) {
+            // Lấy danh sách phim yêu thích từ localStorage
+            let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+            const button = event.currentTarget;
+            const icon = button.querySelector('i');
+
+            if (favorites.includes(movieId)) {
+                // Xóa khỏi danh sách yêu thích
+                favorites = favorites.filter(id => id !== movieId);
+                icon.classList.remove('fas');
+                icon.classList.add('far');
+            } else {
+                // Thêm vào danh sách yêu thích
+                favorites.push(movieId);
+                icon.classList.remove('far');
+                icon.classList.add('fas');
+            }
+
+            // Lưu danh sách yêu thích
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            
+            // Cập nhật số lượng phim yêu thích
+            updateFavoritesCount();
+        }
+
+        // Cập nhật số lượng phim yêu thích
+        function updateFavoritesCount() {
+            const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+            document.querySelector('.favorites-count').textContent = favorites.length;
+        }
+
+        // Khởi tạo trạng thái yêu thích
+        function initializeFavorites() {
+            const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+            favorites.forEach(movieId => {
+                const button = document.querySelector(`[onclick="toggleFavorite('${movieId}')"]`);
+                if (button) {
+                    const icon = button.querySelector('i');
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                }
+            });
+            updateFavoritesCount();
+        }
+
+        // Khởi tạo khi trang được tải
+        window.onload = initializeFavorites;
+    </script>
+</body>
+</html> 

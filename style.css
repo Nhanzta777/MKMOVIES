@@ -1,0 +1,581 @@
+/* Reset CSS: Loại bỏ margin và padding mặc định của trình duyệt */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Thiết lập font chữ và màu nền cho toàn trang */
+body {
+    background: #141414;
+    min-height: 100vh;
+    color: #fff;
+}
+
+/* Container chính */
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header styles */
+header {
+    background: rgba(0, 0, 0, 0.9);
+    padding: 20px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    color: #e50914;
+    font-size: 28px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+#user-name {
+    color: #fff;
+    font-size: 16px;
+}
+
+header button {
+    background: #e50914;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s ease;
+}
+
+header button:hover {
+    background: #f40612;
+}
+
+/* Hero section */
+.hero {
+    height: 500px;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('assets/images/hero-bg.jpg') center/cover;
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.hero-content {
+    max-width: 600px;
+}
+
+.hero h2 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.hero p {
+    font-size: 18px;
+    color: #ccc;
+    margin-bottom: 30px;
+}
+
+/* Movie section */
+.movie-section {
+    margin-bottom: 40px;
+}
+
+.section-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-title::before {
+    content: '';
+    display: block;
+    width: 4px;
+    height: 24px;
+    background: #e50914;
+    border-radius: 2px;
+}
+
+/* Movie grid */
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.movie-card {
+    background: #1f1f1f;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    aspect-ratio: 2/3;
+    display: flex;
+    flex-direction: column;
+}
+
+.movie-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.movie-poster {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.movie-card:hover .movie-poster {
+    transform: scale(1.05);
+}
+
+.movie-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 15px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
+    color: #fff;
+}
+
+.movie-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.movie-year {
+    font-size: 14px;
+    color: #888;
+}
+
+.movie-rating {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.movie-rating::before {
+    content: '★';
+    color: #ffd700;
+}
+
+/* Categories */
+.categories {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    padding: 10px 0;
+}
+
+.category-btn {
+    background: #2f2f2f;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    white-space: nowrap;
+    transition: background 0.3s ease;
+}
+
+.category-btn:hover,
+.category-btn.active {
+    background: #e50914;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .hero {
+        height: 400px;
+    }
+
+    .hero h2 {
+        font-size: 36px;
+    }
+
+    .movie-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+    }
+
+    .movie-poster {
+        height: 225px;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 24px;
+    }
+
+    .hero {
+        height: 300px;
+    }
+
+    .hero h2 {
+        font-size: 28px;
+    }
+
+    .movie-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 10px;
+    }
+
+    .movie-poster {
+        height: 180px;
+    }
+}
+
+/* Container form: Tạo khung trắng và đổ bóng */
+.form-container {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.form-section {
+    transition: all 0.3s ease;
+}
+
+/* Tiêu đề form: Căn giữa và tạo khoảng cách */
+h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+
+/* Nhóm input: Tạo khoảng cách giữa các trường nhập liệu */
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* Input fields: Tạo kiểu cho các ô nhập liệu */
+input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+/* Hiệu ứng focus cho input: Đổi màu viền khi focus */
+input:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+
+/* Nút submit: Tạo kiểu cho các nút bấm */
+button {
+    width: 100%;
+    padding: 12px;
+    background: #af564c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+/* Hiệu ứng hover cho nút: Đổi màu khi di chuột qua */
+button:hover {
+    background: #45a049;
+}
+
+/* Link chuyển form: Tạo kiểu cho các liên kết */
+p {
+    text-align: center;
+    margin-top: 20px;
+    color: #666;
+}
+
+/* Link trong form: Tạo kiểu cho các liên kết */
+a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+/* Hiệu ứng hover cho link: Gạch chân khi di chuột qua */
+a:hover {
+    text-decoration: underline;
+}
+
+.error {
+    color: #ff3333;
+    font-size: 14px;
+    margin-top: 5px;
+    display: none;
+}
+
+/* Modal quên mật khẩu: Tạo lớp phủ toàn màn hình */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+/* Nội dung modal: Căn giữa và tạo khung trắng */
+.modal-content {
+    position: relative;
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 30px;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Nút đóng modal: Tạo kiểu cho nút X */
+.close {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #666;
+    cursor: pointer;
+}
+
+/* Hiệu ứng hover cho nút đóng: Đổi màu khi di chuột qua */
+.close:hover {
+    color: #333;
+}
+
+/* Nhóm nút trong modal: Căn giữa và tạo khoảng cách */
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Nút trong modal: Tạo kiểu riêng cho các nút trong modal */
+.modal-buttons button {
+    flex: 1;
+}
+
+.modal-buttons button:last-child {
+    background: #666;
+}
+
+.modal-buttons button:last-child:hover {
+    background: #555;
+}
+
+/* Favorites link in header */
+.favorites-link {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    transition: background 0.3s ease;
+}
+
+.favorites-link:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.favorites-link i {
+    color: #e50914;
+}
+
+.favorites-count {
+    background: #e50914;
+    color: #fff;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-size: 12px;
+}
+
+/* Favorite button on movie cards */
+.favorite-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.favorite-btn i {
+    color: #fff;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.favorite-btn:hover {
+    background: rgba(229, 9, 20, 0.8);
+}
+
+.favorite-btn:hover i {
+    transform: scale(1.1);
+}
+
+.favorite-btn i.fas {
+    color: #e50914;
+}
+
+/* Favorites page styles */
+.favorites-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.back-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    transition: background 0.3s ease;
+}
+
+.back-link:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    margin-top: 2rem;
+}
+
+.empty-state i {
+    font-size: 4rem;
+    color: #e50914;
+    margin-bottom: 1rem;
+}
+
+.empty-state h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+    color: #999;
+    margin-bottom: 1.5rem;
+}
+
+.favorites-link.active {
+    background: rgba(229, 9, 20, 0.2);
+}
+
+/* Empty state button */
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background: #e50914;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.btn:hover {
+    background: #f40612;
+    transform: translateY(-2px);
+}
+
+/* Notification modal styles */
+.notification-content {
+    text-align: center;
+    padding: 20px;
+    max-width: 300px;
+}
+
+.notification-content p {
+    margin: 15px 0;
+    color: #333;
+    font-size: 16px;
+}
+
+.notification-content button {
+    background: #e50914;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s ease;
+}
+
+.notification-content button:hover {
+    background: #f40612;
+} 

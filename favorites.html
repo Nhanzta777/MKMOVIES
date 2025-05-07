@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NKMOVIES - Phim Yêu Thích</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>NKMOVIES</h1>
+            <div class="user-info">
+                <span id="user-name"></span>
+                <a href="favorites.html" class="favorites-link active">
+                    <i class="fas fa-heart"></i>
+                    <span class="favorites-count">0</span>
+                </a>
+                <button onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="favorites-header">
+            <h2 class="section-title">Phim Yêu Thích</h2>
+            <a href="home.html" class="back-link">
+                <i class="fas fa-arrow-left"></i> Quay lại trang chủ
+            </a>
+        </div>
+
+        <div class="movie-grid" id="favorites-grid">
+            <!-- Phim yêu thích sẽ được thêm vào đây bằng JavaScript -->
+        </div>
+
+        <div class="empty-state" id="empty-favorites" style="display: none;">
+            <i class="far fa-heart"></i>
+            <h3>Bạn chưa có phim yêu thích nào</h3>
+            <p>Hãy thêm phim vào danh sách yêu thích để xem chúng ở đây</p>
+            <a href="home.html" class="btn">Khám phá phim mới</a>
+        </div>
+    </main>
+
+    <script>
+        // Kiểm tra đăng nhập
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (!currentUser) {
+            window.location.href = 'index.html';
+        }
+
+        // Hiển thị tên người dùng
+        document.getElementById('user-name').textContent = `Xin chào, ${currentUser.name}`;
+
+        // Xử lý đăng xuất
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'index.html';
+        }
+
+        // Dữ liệu phim mẫu (trong thực tế sẽ lấy từ database)
+        const movies = {
+            'movie1': {
+                title: 'Oppenheimer',
+                year: '2024',
+                rating: '8.5',
+                poster: 'assets/images/movies/Oppenheimer.jpg'
+            },
+            'movie2': {
+                title: 'Tên phim 2',
+                year: '2024',
+                rating: '9.0',
+                poster: 'assets/images/movies/movie2.jpg'
+            },
+            'movie3': {
+                title: 'Tên phim 3',
+                year: '2024',
+                rating: '7.8',
+                poster: 'assets/images/movies/movie3.jpg'
+            },
+            'movie4': {
+                title: 'Tên phim 4',
+                year: '2024',
+                rating: '9.2',
+                poster: 'assets/images/movies/movie4.jpg'
+            },
+            'movie5': {
+                title: 'Tên phim 5',
+                year: '2024',
+                rating: '8.9',
+                poster: 'assets/images/movies/movie5.jpg'
+            },
+            'movie6': {
+                title: 'Tên phim 6',
+                year: '2024',
+                rating: '8.7',
+                poster: 'assets/images/movies/movie6.jpg'
+            }
+        };
+
+        // Hiển thị phim yêu thích
+        function displayFavorites() {
+            const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+            const favoritesGrid = document.getElementById('favorites-grid');
+            const emptyState = document.getElementById('empty-favorites');
+            const favoritesCount = document.querySelector('.favorites-count');
+
+            // Cập nhật số lượng phim yêu thích
+            favoritesCount.textContent = favorites.length;
+
+            if (favorites.length === 0) {
+                favoritesGrid.style.display = 'none';
+                emptyState.style.display = 'flex';
+                return;
+            }
+
+            favoritesGrid.style.display = 'grid';
+            emptyState.style.display = 'none';
+            favoritesGrid.innerHTML = '';
+
+            favorites.forEach(movieId => {
+                const movie = movies[movieId];
+                if (movie) {
+                    const movieCard = document.createElement('div');
+                    movieCard.className = 'movie-card';
+                    movieCard.innerHTML = `
+                        <div class="movie-rating">${movie.rating}</div>
+                        <button class="favorite-btn" onclick="toggleFavorite('${movieId}')">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                        <img src="${movie.poster}" alt="${movie.title}" class="movie-poster">
+                        <div class="movie-info">
+                            <h3 class="movie-title">${movie.title}</h3>
+                            <p class="movie-year">${movie.year}</p>
+                        </div>
+                    `;
+                    favoritesGrid.appendChild(movieCard);
+                }
+            });
+        }
+
+        // Xử lý yêu thích
+        function toggleFavorite(movieId) {
+            let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+            favorites = favorites.filter(id => id !== movieId);
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            displayFavorites();
+        }
+
+        // Khởi tạo khi trang được tải
+        window.onload = displayFavorites;
+    </script>
+</body>
+</html> 
